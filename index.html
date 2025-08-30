@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>For My Boyfriend 💙</title>
+  <meta name="description" content="A cute, live, single‑file webpage for your boyfriend" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg1:#0f1020;     /* gradient start */
+      --bg2:#1a2b4b;     /* gradient end   */
+      --accent:#ff6aa9;  /* pink accent    */
+      --accent-2:#8ae6ff;/* cyan accent    */
+      --card:#111627cc;  /* glass card     */
+      --text:#eaf2ff;    /* main text      */
+      --muted:#b9c6e4;   /* muted text     */
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Poppins, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+      color:var(--text);
+      background: radial-gradient(1200px 800px at 25% 10%, #2a2b55 0%, transparent 60%),
+                  radial-gradient(900px 600px at 80% 20%, #123b52 0%, transparent 60%),
+                  linear-gradient(135deg,var(--bg1),var(--bg2));
+      overflow-x:hidden;
+    }
+    .wrap{
+      min-height:100vh;
+      display:grid;
+      grid-template-rows:auto 1fr auto;
+    }
+    header{
+      display:flex;align-items:center;justify-content:center;gap:.6rem;padding:1.1rem 1rem;
+    }
+    header .dot{width:.6rem;height:.6rem;border-radius:999px;background:var(--accent);box-shadow:0 0 18px var(--accent)}
+    header h1{font-family:"Playfair Display", serif;font-size:1.6rem;margin:0;font-weight:600;letter-spacing:.4px}
+
+    main{display:grid;place-items:center;padding:1.6rem}
+
+    .card{
+      width:min(920px,92vw);
+      background:var(--card);
+      backdrop-filter: blur(16px) saturate(1.2);
+      border:1px solid #ffffff1a;
+      border-radius:24px;
+      padding:clamp(16px,4vw,32px);
+      box-shadow:0 10px 40px #0008;
+      position:relative;overflow:hidden;
+    }
+    .glow{position:absolute;inset:-40%;filter:blur(60px);opacity:.28;pointer-events:none;background:
+      radial-gradient(600px 420px at 20% 30%, #ff6aa955, transparent 70%),
+      radial-gradient(600px 420px at 80% 60%, #8ae6ff55, transparent 70%);
+    }
+
+    .hero{
+      display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(16px,3.6vw,32px);
+    }
+    @media (max-width: 900px){.hero{grid-template-columns:1fr}}
+
+    .title{
+      font-size:clamp(2rem,5vw,3.4rem);
+      line-height:1.1;margin:.2rem 0 .6rem;font-weight:700;
+      letter-spacing:.3px;
+    }
+    .accent{background:linear-gradient(90deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+    .typed{min-height:2.4rem; display:inline-block; border-right:2px solid var(--accent); padding-right:6px; white-space:nowrap; overflow:hidden}
+
+    .sub{color:var(--muted);font-weight:400;margin:0 0 1.2rem;line-height:1.6}
+
+    .stats{
+      display:flex;flex-wrap:wrap;gap:10px;margin:16px 0 24px
+    }
+    .chip{padding:10px 14px;border-radius:999px;border:1px solid #ffffff24;background:#ffffff0f}
+
+    .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:10px}
+    .btn{
+      border:none;cursor:pointer;padding:12px 18px;border-radius:14px;font-weight:600;letter-spacing:.2px
+    }
+    .btn.primary{background:linear-gradient(135deg,var(--accent),#ff9cc6);color:#2b0b1a;box-shadow:0 8px 24px #ff6aa944}
+    .btn.ghost{background:#ffffff14;color:var(--text);border:1px solid #ffffff24}
+
+    .photo{
+      aspect-ratio:4/3;border-radius:20px;overflow:hidden;border:1px solid #ffffff1f;background:#0003;
+      display:grid;place-items:center;position:relative
+    }
+    .photo img{width:100%;height:100%;object-fit:cover}
+    .photo .hint{position:absolute;inset:auto 10px 10px auto;background:#0006;padding:6px 10px;border-radius:10px;font-size:.82rem;color:#fff}
+
+    .love-note{
+      margin-top:22px;padding:18px;border-radius:18px;background:#ffffff0e;border:1px solid #ffffff1c;line-height:1.7
+    }
+
+    footer{padding:18px 14px;color:#c7d5ff99;text-align:center;font-size:.9rem}
+
+    /* floating hearts */
+    .heart{position:fixed;bottom:-40px;left:50%;transform:translateX(-50%);font-size:18px;opacity:.8;animation: rise 6s linear forwards}
+    @keyframes rise{0%{transform:translateX(-50%) translateY(0) scale(.9)} 100%{transform:translateX(var(--x)) translateY(-110vh) scale(1.2);opacity:0}}
+
+    /* modal */
+    dialog{border:none;border-radius:20px;background:#111827; color:var(--text); padding:22px; width:min(560px,92vw); box-shadow:0 20px 60px #000a}
+    dialog::backdrop{background:rgba(0,0,0,.55)}
+    .modal-actions{display:flex;justify-content:flex-end;margin-top:14px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <span class="dot"></span>
+      <h1>For <span id="bfName">My Love</span></h1>
+    </header>
+
+    <main>
+      <section class="card">
+        <div class="glow" aria-hidden="true"></div>
+        <div class="hero">
+          <div>
+            <div class="title">
+              Hey <span class="accent" id="bfNameBig">Love</span>,
+              <div class="typed" id="typed"></div>
+            </div>
+
+            <p class="sub">
+              This little page is just to remind you that you are my favorite notification, my safest place, and my happiest habit.
+            </p>
+
+            <div class="stats">
+              <span class="chip">🗓️ Together: <b id="daysTogether">—</b> days</span>
+              <span class="chip">⏰ Local time: <b id="clock">—:—:—</b></span>
+              <span class="chip">💓 Next milestone: <b id="milestone">—</b></span>
+            </div>
+
+            <div class="actions">
+              <button class="btn primary" id="surpriseBtn">Tap for a surprise ✨</button>
+              <button class="btn ghost" id="shareBtn">Share this</button>
+              
+            </div>
+
+            <div class="love-note" id="loveNote">
+              loveeeeeeee yuuuuu meraaaaaa popoooooo loveeeeeeee youuuuuu puchuuuuuu 
+            </div>
+          </div>
+
+          <div>
+            <figure class="photo">
+              <!-- Replace src with your photo URL -->
+              <a href="https://ibb.co/Yvnjf7w"><img src="https://i.ibb.co/SqYvVXG/Whats-App-Image-2025-08-18-at-9-37-53-PM.jpg" alt="Whats-App-Image-2025-08-18-at-9-37-53-PM" border="0"></a>alt="Us 💙"/
+                <figcaption class="hint">This is us, always together 💞</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      Made with ❤️ by <span id="yourName">You</span>. Hold my hand, always.
+    </footer>
+  </div>
+
+  <!-- Sweet messages modal -->
+  <dialog id="msgModal">
+    <div id="randomMsg" style="font-size:1.1rem;line-height:1.7"></div>
+    <div class="modal-actions"><button class="btn primary" id="closeModal">Aww, thanks 💖</button></div>
+  </dialog>
+
+  <script>
+    // === EASY CUSTOMIZATION ===
+    // Edit these and hit refresh ✨
+    let SETTINGS = {
+      boyfriendName: "POPO",                 // e.g., "Aviral"
+      yourName: "Bhumika",                   // your name for the footer
+      anniversaryISO: "2024-05-04",          // YYYY-MM-DD (first meet / official)
+      milestoneDays: [100, 200, 365, 500, 730, 1000], // celebrated days
+      typedLines: [
+        "you make ordinary days feel like festivals.",
+        "every playlist is better with your voice in it.",
+        "I pick you. Today, tomorrow, always."
+      ]
+    };
+
+    // Load saved values from previous edits
+    try{
+      const saved = JSON.parse(localStorage.getItem('bfPageSettings'));
+      if(saved){ SETTINGS = { ...SETTINGS, ...saved }; }
+    }catch{ /* ignore */ }
+
+    // Populate name fields
+    const $ = (s)=>document.querySelector(s);
+    const bfNameEls = [$('#bfName'), $('#bfNameBig')];
+    bfNameEls.forEach(el=> el.textContent = SETTINGS.boyfriendName || 'Love');
+    $('#yourName').textContent = SETTINGS.yourName || 'You';
+
+    // Typewriter
+    (function typewrite(){
+      const el = $('#typed');
+      const lines = SETTINGS.typedLines.slice();
+      let i=0, j=0, deleting=false;
+      function tick(){
+        const full = lines[i % lines.length];
+        el.textContent = deleting ? full.slice(0, j--) : full.slice(0, j++);
+        if(!deleting && j > full.length + 8){ deleting = true; }
+        if(deleting && j <= 0){ deleting = false; i++; }
+        setTimeout(tick, deleting ? 40 : 65);
+      }
+      tick();
+    })();
+
+    // Live clock
+    function pad(n){ return n.toString().padStart(2,'0'); }
+    setInterval(()=>{
+      const d = new Date();
+      $('#clock').textContent = `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+    }, 1000);
+
+    // Days together & next milestone
+    function calcDays(){
+      const start = new Date(SETTINGS.anniversaryISO);
+      if(isNaN(start)) return;
+      const today = new Date();
+      const ms = today - start;
+      const days = Math.floor(ms / (1000*60*60*24));
+      $('#daysTogether').textContent = days;
+      let next = SETTINGS.milestoneDays.find(n => n > days);
+      if(!next){ $('#milestone').textContent = 'Everyday with you ✨'; return; }
+      const left = next - days;
+      $('#milestone').textContent = `${next} days (in ${left} days)`;
+    }
+    calcDays();
+
+    // Floating hearts generator
+    function heart(){
+      const span = document.createElement('span');
+      span.className = 'heart';
+      span.textContent = Math.random() > .33 ? '💖' : (Math.random()>.5 ? '💗' : '💘');
+      span.style.left = Math.random()*100 + 'vw';
+      span.style.setProperty('--x', (Math.random()*60-30) + 'vw');
+      span.style.fontSize = (12 + Math.random()*22) + 'px';
+      document.body.appendChild(span);
+      setTimeout(()=> span.remove(), 6500);
+    }
+    setInterval(heart, 1000);
+
+    // Surprise messages
+    const MESSAGES = [
+      "You + Me = Home.",
+      "I checked my heartbeat—turns out it spells your name.",
+      "Plot twist: you were my favorite chapter all along.",
+      
+    ];
+
+    $('#surpriseBtn').addEventListener('click', ()=>{
+      $('#randomMsg').textContent = MESSAGES[Math.floor(Math.random()*MESSAGES.length)];
+      document.querySelector('#msgModal').showModal();
+      for(let i=0;i<14;i++) setTimeout(heart, i*120);
+    });
+    $('#closeModal').addEventListener('click', ()=> document.querySelector('#msgModal').close());
+
+    // Share button
+    $('#shareBtn').addEventListener('click', async ()=>{
+      const shareData = { title: 'For You 💙', text: 'Open this, it’s for you. 💌', url: location.href };
+      try{
+        if(navigator.share){ await navigator.share(shareData); }
+        else{
+          await navigator.clipboard.writeText(location.href);
+          alert('Link copied! Send it to him 💫');
+        }
+      }catch{ /* user canceled */ }
+    });
+
+    // Edit dialog for name & date
+    $('#editBtn').addEventListener('click', async ()=>{
+      const name = prompt("His name (how you call him)?", SETTINGS.boyfriendName);
+      if(name !== null && name.trim() !== ''){
+        SETTINGS.boyfriendName = name.trim();
+        bfNameEls.forEach(el=> el.textContent = SETTINGS.boyfriendName);
+      }
+      const you = prompt("Your name for the footer?", SETTINGS.yourName);
+      if(you !== null && you.trim() !== ''){
+        SETTINGS.yourName = you.trim();
+        $('#yourName').textContent = SETTINGS.yourName;
+      }
+      const iso = prompt("Anniversary date (YYYY-MM-DD)", SETTINGS.anniversaryISO);
+      if(iso){
+        const test = new Date(iso);
+        if(!isNaN(test)){
+          SETTINGS.anniversaryISO = iso;
+          calcDays();
+        } else { alert('That date did not look valid. Keep using the old one.'); }
+      }
+      localStorage.setItem('bfPageSettings', JSON.stringify(SETTINGS));
+    });
+  </script>
+</body>
+</html>
